@@ -20,7 +20,7 @@ export default function TextEditor() {
     },[])
 
     return (
-        <div ID ="container" ref = {wrapperRef}></div>
+        <div className="container" ref = {wrapperRef}></div>
     )
 }
 
