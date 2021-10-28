@@ -1,7 +1,7 @@
 import React from "react"
 import Signup from "./Authentication/Signup"
 import { AuthProvider } from "../contexts/AuthContext"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Profile from "./Authentication/Profile"
 import Login from "./Authentication/Login"
 import PrivateRoute from "./Authentication/PrivateRoute"
@@ -10,6 +10,8 @@ import UpdateProfile from "./Authentication/UpdateProfile"
 import Dashboard from "./Drive/Dashboard"
 
 import Doc from "./Document/Doc"
+import TextEditor from "./Document/TextEditor"
+import {v4 as uuidV4 } from "uuid"
 
 function App() {
   return (
@@ -21,8 +23,13 @@ function App() {
           <PrivateRoute exact path="/folder/:folderId" component={Dashboard} />
 
           {/* Docs */}
-          <PrivateRoute exact path="/view" component={Doc} />
+          <PrivateRoute exact path="/viewall" component={Doc} />
 
+          <PrivateRoute exact path="/view">  
+            <Redirect to ={`/documents/${uuidV4()}`} />
+          </PrivateRoute>
+          
+          <PrivateRoute exact path="/documents/:id" component={TextEditor} />
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />
