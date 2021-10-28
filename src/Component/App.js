@@ -9,6 +9,8 @@ import ForgotPassword from "./Authentication/ForgotPassword"
 import UpdateProfile from "./Authentication/UpdateProfile"
 import Dashboard from "./Drive/Dashboard"
 
+import Doc from "./Document/Doc"
+
 function App() {
   return (
     <Router>
@@ -17,6 +19,10 @@ function App() {
           {/* Drive */}
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/folder/:folderId" component={Dashboard} />
+
+          {/* Docs */}
+          <PrivateRoute exact path="/view" component={Doc} />
+
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />
