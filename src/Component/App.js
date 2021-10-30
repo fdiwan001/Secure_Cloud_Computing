@@ -8,6 +8,7 @@ import PrivateRoute from "./Authentication/PrivateRoute"
 import ForgotPassword from "./Authentication/ForgotPassword"
 import UpdateProfile from "./Authentication/UpdateProfile"
 import Dashboard from "./Drive/Dashboard"
+import ShareDashboard from "./Drive/ShareDashboard"
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
           {/* Drive */}
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/folder/:folderId" component={Dashboard} />
+
+          {/*Shared Drive*/}
+          <PrivateRoute exact path="/shared" component={ShareDashboard} />
+          <PrivateRoute exact path="/folder/:folderId" component={ShareDashboard} />
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />
