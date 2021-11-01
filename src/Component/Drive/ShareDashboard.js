@@ -19,13 +19,6 @@ export default function ShareDashboard() {
     const { state = {} } = useLocation()
     const { folder, childFolders, childFiles} = useShareFolder(folderId, state.folder)
     const { currentUser } = useAuth()
-
-    /*if (currentUser !== null) {
-      firestore.collection('users').doc(currentUser.email).set({
-        email: currentUser.email,
-        userid: currentUser.uid,
-      })
-    }*/
     return (
       <>
         <NavbarComponent />
