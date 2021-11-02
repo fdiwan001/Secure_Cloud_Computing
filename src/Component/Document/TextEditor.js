@@ -16,6 +16,8 @@ const TOOLBAR_OPTIONS = [
     ["clean"],
   ]
 
+const  SAVE_INTERVAL_MS = 2000
+
 export default function TextEditor() {
     const {id: documentId} = useParams()
     const [socket, setSocket] = useState()
@@ -42,6 +44,18 @@ export default function TextEditor() {
     },[socket, quill, documentId])
 
     useEffect(() => {
+        if (socket == null || quill == null) return
+    
+        const interval = setInterval(() => {
+            socket.emit("save-document", quill.getContents())
+        }, SAVE_INTERVAL_MS)
+    
+        return () => {
+          clearInterval(interval)
+        }
+      }, [socket, quill])
+
+    useEffect(() => {
         if(socket == null || quill == null ) return
 
         const handler = (delta,oldDelta, source) => {
@@ -58,20 +72,17 @@ export default function TextEditor() {
     },[socket, quill])
 
     useEffect(() => {
-        if(socket == null || quill == null ) return
-
-        const handler = (delta) => {
-            quill.updateContents(delta)
+        if (socket == null || quill == null) return
+    
+        const handler = delta => {
+          quill.updateContents(delta)
         }
-        socket.on('receive-changes', handler)
-
+        socket.on("receive-changes", handler)
+    
         return () => {
-            socket.off('receive-changes',handler)
+          socket.off("receive-changes", handler)
         }
-
-       
-    },[socket, quill])
-
+      }, [socket, quill])
 
 
     const wrapperRef = useCallback((wrapper) => {
