@@ -25,7 +25,7 @@ function App() {
           {/* Docs */}
           <PrivateRoute exact path="/viewall" component={Doc} />
 
-          <PrivateRoute exact path="/view">  
+          <PrivateRoute exact path="/create">  
             <Redirect to ={`/documents/${uuidV4()}`} />
           </PrivateRoute>
           

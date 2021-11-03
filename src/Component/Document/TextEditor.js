@@ -36,12 +36,16 @@ export default function TextEditor() {
     useEffect(() => {
         if( socket == null || quill == null) return
         socket.once("load-document", document => {
+            console.log(document)
             quill.setContents(document)
             quill.enable()
         })
         socket.emit('get-document', documentId)
 
     },[socket, quill, documentId])
+
+
+    
 
     useEffect(() => {
         if (socket == null || quill == null) return
