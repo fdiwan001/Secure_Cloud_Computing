@@ -1,7 +1,7 @@
 import React from "react"
 import Signup from "./Authentication/Signup"
 import { AuthProvider } from "../contexts/AuthContext"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Profile from "./Authentication/Profile"
 import Login from "./Authentication/Login"
 import PrivateRoute from "./Authentication/PrivateRoute"
@@ -9,6 +9,10 @@ import ForgotPassword from "./Authentication/ForgotPassword"
 import UpdateProfile from "./Authentication/UpdateProfile"
 import Dashboard from "./Drive/Dashboard"
 import ShareDashboard from "./Drive/ShareDashboard"
+
+import Doc from "./Document/Doc"
+import TextEditor from "./Document/TextEditor"
+import {v4 as uuidV4 } from "uuid"
 
 function App() {
   return (
@@ -19,6 +23,14 @@ function App() {
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/folder/:folderId" component={Dashboard} />
 
+          {/* Docs */}
+          <PrivateRoute exact path="/viewall" component={Doc} />
+
+          <PrivateRoute exact path="/create">  
+            <Redirect to ={`/documents/${uuidV4()}`} />
+          </PrivateRoute>
+          
+          <PrivateRoute exact path="/documents/:id" component={TextEditor} /
           {/*Shared Drive*/}
           <PrivateRoute exact path="/shared" component={ShareDashboard} />
           <PrivateRoute exact path="/folder/:folderId" component={ShareDashboard} />
