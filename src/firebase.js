@@ -15,6 +15,7 @@ const app = firebase.initializeApp({
 const firestore = app.firestore()
 export const database = {
     folders: firestore.collection('folders'),
+    sharefolders: firestore.collection('sharefolders'),
     files: firestore.collection('files'),
     formatDoc: doc => {
         return { id: doc.id, ...doc.data() }
@@ -22,7 +23,15 @@ export const database = {
     getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
 }
 
+export const writeUserData = {
+    users: firestore.collection('users'),
+    formatDoc: doc => {
+        return { id: doc, ...doc.data() }
+    },
+}
+
 export const storage = app.storage()
 export const auth = app.auth()
 export default app
 export { firebase }
+export { firestore}

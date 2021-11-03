@@ -8,6 +8,7 @@ import PrivateRoute from "./Authentication/PrivateRoute"
 import ForgotPassword from "./Authentication/ForgotPassword"
 import UpdateProfile from "./Authentication/UpdateProfile"
 import Dashboard from "./Drive/Dashboard"
+import ShareDashboard from "./Drive/ShareDashboard"
 
 import Doc from "./Document/Doc"
 import TextEditor from "./Document/TextEditor"
@@ -29,7 +30,10 @@ function App() {
             <Redirect to ={`/documents/${uuidV4()}`} />
           </PrivateRoute>
           
-          <PrivateRoute exact path="/documents/:id" component={TextEditor} />
+          <PrivateRoute exact path="/documents/:id" component={TextEditor} /
+          {/*Shared Drive*/}
+          <PrivateRoute exact path="/shared" component={ShareDashboard} />
+          <PrivateRoute exact path="/folder/:folderId" component={ShareDashboard} />
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />

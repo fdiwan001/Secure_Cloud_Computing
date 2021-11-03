@@ -14,8 +14,12 @@ export default function NavbarComponent() {
                 </Nav.Link>
             </Nav>
             <Nav>
+
                 <Nav.Link as={Link} to="/create">
                     Document
+
+                <Nav.Link as={Link} to="/shared">
+                    Shared_Space
                 </Nav.Link>
             </Nav>
         </Navbar>

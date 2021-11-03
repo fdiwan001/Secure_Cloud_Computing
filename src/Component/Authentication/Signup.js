@@ -3,15 +3,17 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
+import { database, writeUserData } from "../../firebase"
 
 export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
+  const { signup, currentUser } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -28,7 +30,6 @@ export default function Signup() {
     } catch {
       setError("Failed to create an account")
     }
-
     setLoading(false)
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import { useShareFolder } from "../../hooks/useShareFolder"
 import { useFolder } from '../../hooks/useFolder'
 import AddFolder from './AddFolder'
 import AddFile from './AddFile'
@@ -8,30 +9,22 @@ import Folder from './Folder'
 import File from './File'
 import NavbarComponent from './navbar'
 import FolderBreadcrumbs from './FolderBreadcrumbs'
+import SharedFolderBreadcrumbs from './SharedFolderBreadcrumbs'
 import { useLocation, useParams } from 'react-router'
 import { firestore } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 
-export default function Dashboard() {
+export default function ShareDashboard() {
     const { folderId } = useParams()
     const { state = {} } = useLocation()
-    const { folder, childFolders, childFiles } = useFolder(folderId, state.folder)
+    const { folder, childFolders, childFiles} = useShareFolder(folderId, state.folder)
     const { currentUser } = useAuth()
-
-    if (currentUser !== null) {
-      firestore.collection('users').doc(currentUser.email).set({
-        email: currentUser.email,
-        userid: currentUser.uid,
-      })
-      console.log("Childfiles are ", childFiles)
-    }
-  
     return (
       <>
         <NavbarComponent />
         <Container fluid>
           <div className="d-flex align-items-center">
-            <FolderBreadcrumbs currentFolder={folder} />
+            <SharedFolderBreadcrumbs currentFolder={folder} />
             <AddFile currentFolder={folder} />
             <AddFolder currentFolder={folder} />
             <ShareFolder currentFolder={folder} />
