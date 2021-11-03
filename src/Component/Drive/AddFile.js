@@ -64,7 +64,7 @@ export default function AddFile({ currentFolder }) {
         uploadTask.snapshot.ref.getDownloadURL().then(url => {
           database.files
             .where("name", "==", file.name)
-            .where("userId", "==", currentUser.uid)
+            .where("userId", "array-contains", currentUser.uid)
             .where("folderId", "==", currentFolder.id)
             .get()
             .then(existingFiles => {

@@ -42,7 +42,7 @@ export default function AddFolder({ currentFolder }) {
         name: name,
         parentId: currentFolder.id,
         userId: doc.data().userId,
-        shared: null,
+        shared: doc.data().shared,
         path: path,
         sharepath: sharepath,
         ownerId: currentUser.uid,
