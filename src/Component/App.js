@@ -30,7 +30,7 @@ function App() {
             <Redirect to ={`/documents/${uuidV4()}`} />
           </PrivateRoute>
           
-          <PrivateRoute exact path="/documents/:id" component={TextEditor} /
+          <PrivateRoute exact path="/documents/:id" component={TextEditor} />
           {/*Shared Drive*/}
           <PrivateRoute exact path="/shared" component={ShareDashboard} />
           <PrivateRoute exact path="/folder/:folderId" component={ShareDashboard} />

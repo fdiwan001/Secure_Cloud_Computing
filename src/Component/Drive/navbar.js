@@ -13,11 +13,12 @@ export default function NavbarComponent() {
                     Profile
                 </Nav.Link>
             </Nav>
+
             <Nav>
 
                 <Nav.Link as={Link} to="/create">
                     Document
-
+                </Nav.Link>
                 <Nav.Link as={Link} to="/shared">
                     Shared_Space
                 </Nav.Link>
