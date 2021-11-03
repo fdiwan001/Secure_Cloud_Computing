@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Modal, Form } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFolderPlus, faShare } from "@fortawesome/free-solid-svg-icons"
+import { faFolderPlus} from "@fortawesome/free-solid-svg-icons"
 import { database, firestore } from "../../firebase"
 import { useAuth } from "../../contexts/AuthContext"
 import { ROOT_FOLDER } from "../../hooks/useFolder"
@@ -27,56 +27,44 @@ export default function AddFolder({ currentFolder }) {
     if (currentFolder == null) return
 
     const path = [...currentFolder.path]
+    const user = []
+    var sharepath = [currentFolder.id];
+    console.log("sharepath is ", sharepath)
+    user.push(currentUser.uid)
     if (currentFolder !== ROOT_FOLDER) {
       path.push({ name: currentFolder.name, id: currentFolder.id })
-                  firestore.collection('folders').doc(currentFolder.id).get().then(doc => {
 
-                    if (doc.data().editorId !== null ){
+      firestore.collection('folders').doc(currentFolder.id).get().then(doc => {
 
-                      database.folders.add({
-                        name: name,
-                        parentId: currentFolder.id,
-                        userId: currentUser.uid,
-                        editorId: doc.data().editorId,
-                        //editorpath: new_editorpath,
-                        path: path,
-                        createdAt: database.getCurrentTimestamp(),
-                      })
+        sharepath = [...sharepath, ...doc.data().sharepath]
 
-
-                    }else{
-
-                      var editorId = [];
-
-                      database.folders.add({
-                        name: name,
-                        parentId: currentFolder.id,
-                        userId: currentUser.uid,
-                        editorId: editorId,
-                        //editorpath: new_editorpath,
-                        path: path,
-                        createdAt: database.getCurrentTimestamp(),
-                      })
-                    }
-                  });
-                console.log("new current folder id is", currentFolder.id)
-                setName("")
-                closeModal()
+      database.folders.add({
+        name: name,
+        parentId: currentFolder.id,
+        userId: doc.data().userId,
+        shared: null,
+        path: path,
+        sharepath: sharepath,
+        ownerId: currentUser.uid,
+        createdAt: database.getCurrentTimestamp(),
+      })
+    })
+      setName("")
+      closeModal()
     }
     else{
-      var editorId = [];
-
-    database.folders.add({
+      database.folders.add({
       name: name,
       parentId: currentFolder.id,
-      userId: currentUser.uid,
-      editorId: editorId,
-      //editorpath: new_editorpath,
+      userId: user,
+      shared: null,
+      sharepath: sharepath,
       path: path,
+      ownerId: currentUser.uid,
       createdAt: database.getCurrentTimestamp(),
     })
     setName("")
-                closeModal()
+    closeModal()
 
 
     console.log("current user is not null")

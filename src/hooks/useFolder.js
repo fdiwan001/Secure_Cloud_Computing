@@ -79,11 +79,10 @@ export function useFolder(folderId = null, folder = null) {
   }, [folderId])
 
   useEffect(() => {
-    console.log("retriving database child folders and folderId is",folderId)
     return database.folders
       .where("parentId", "==", folderId)
-      .where("userId", "==", currentUser.uid)
-      .orderBy("createdAt")
+      .where("userId", "array-contains", currentUser.uid)
+      //.orderBy("createdAt")
       .onSnapshot(snapshot => {
         dispatch({
           type: ACTIONS.SET_CHILD_FOLDERS,
@@ -96,8 +95,8 @@ export function useFolder(folderId = null, folder = null) {
     return (
       database.files
         .where("folderId", "==", folderId)
-        .where("userId", "==", currentUser.uid)
-        .orderBy("createdAt")
+        .where("userId", "array-contains", currentUser.uid)
+        //.orderBy("createdAt")
         .onSnapshot(snapshot => {
           dispatch({
             type: ACTIONS.SET_CHILD_FILES,

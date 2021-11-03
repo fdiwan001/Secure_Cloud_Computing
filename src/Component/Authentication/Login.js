@@ -3,12 +3,12 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import { writeUserData, firebase } from "../../firebase"
+import { firebase } from "../../firebase"
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login, currentUser } = useAuth()
+  const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()

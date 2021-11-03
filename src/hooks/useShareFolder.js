@@ -54,7 +54,7 @@ export function useShareFolder(folderId = null, folder = null) {
       }, [folderId, folder])
     
       useEffect(() => {
-        if (folderId == null) {
+        if (folderId === null) {
           return dispatch({
             type: ACTIONS.UPDATE_FOLDER,
             payload: { folder: SHARE_FOLDER },
@@ -82,8 +82,8 @@ export function useShareFolder(folderId = null, folder = null) {
         console.log("retriving database child folders and folderId is",folderId)
         console.log("current user id is ", currentUser.uid)
         return database.folders
-          .where("parentId", "==", folderId)
-          .where("editorId", "array-contains", currentUser.uid)
+          .where("shared", "==", "yes")
+          .where("ownerId", "==", currentUser.uid)
           .orderBy("createdAt")
           .onSnapshot(snapshot => {
             dispatch({
@@ -91,15 +91,14 @@ export function useShareFolder(folderId = null, folder = null) {
               payload: { childFolders: snapshot.docs.map(database.formatDoc) },
             })
           })
-          console.log("retriving database folders")
       }, [folderId, currentUser])
     
       useEffect(() => {
         console.log("retriving database child files")
         return (
           database.files
-            .where("folderId", "==", folderId)
-            .where("editorId", "array-contains", currentUser.uid)
+            .where("shared", "==", "yes")
+            .where("ownerId", "==", currentUser.uid)
             .orderBy("createdAt")
             .onSnapshot(snapshot => {
               dispatch({
@@ -108,7 +107,6 @@ export function useShareFolder(folderId = null, folder = null) {
               })
             })
         )
-        console.log("retriving database child files")
       }, [folderId, currentUser])
     
     return state
