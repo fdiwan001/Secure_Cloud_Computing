@@ -32,8 +32,8 @@ function App() {
           
           <PrivateRoute exact path="/documents/:id" component={TextEditor} />
           {/*Shared Drive*/}
-          <PrivateRoute exact path="/shared" component={ShareDashboard} />
-          <PrivateRoute exact path="/folder/:folderId" component={ShareDashboard} />
+          <PrivateRoute path="/shared" component={ShareDashboard} />
+          <PrivateRoute path="/folder/:folderId" component={ShareDashboard} />
 
           {/* Profile */}
           <PrivateRoute path="/user" component={Profile} />

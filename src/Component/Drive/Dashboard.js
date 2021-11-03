@@ -23,7 +23,6 @@ export default function Dashboard() {
         email: currentUser.email,
         userid: currentUser.uid,
       })
-      console.log("Childfiles are ", childFiles)
     }
   
     return (
