@@ -11,6 +11,7 @@ import FolderBreadcrumbs from './FolderBreadcrumbs'
 import { useLocation, useParams } from 'react-router'
 import { firestore } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+import AddDocument from './AddDocument'
 
 export default function Dashboard() {
     const { folderId } = useParams()
@@ -31,6 +32,7 @@ export default function Dashboard() {
         <Container fluid>
           <div className="d-flex align-items-center">
             <FolderBreadcrumbs currentFolder={folder} />
+            <AddDocument currentFolder={folder} />
             <AddFile currentFolder={folder} />
             <AddFolder currentFolder={folder} />
             <ShareFolder currentFolder={folder} />

@@ -29,15 +29,14 @@ const io = require('socket.io')(3001, {
     }
 })
 
+console.log("Server is running")
+
 io.on("connection", socket => {
     socket.on('get-document', async documentId => {
         const document = await findOrCreateDocument(documentId)
         socket.join(documentId)
         console.log("in socket")
-        const docRef = firestore.collection('documents').doc(documentId);
-        const doc = await docRef.get();
-        console.log('Document data:', doc.data()); 
-        socket.emit("load-document", doc.data)
+        socket.emit("load-document", document)
 
         socket.on('send-changes', delta => {
             socket.broadcast.to(documentId).emit('receive-changes', delta)
@@ -48,7 +47,9 @@ io.on("connection", socket => {
             const docRef = firestore.collection('documents').doc(documentId);
 
             const doc = await docRef.set({
-                data: data
+                data: data,
+                docId: documentId,
+                userId: null,
               }, { merge: true });
               
             //await document.findByIdAndUpdate(documentId, { data })
@@ -60,6 +61,7 @@ io.on("connection", socket => {
 
 async function findOrCreateDocument(id) {
     if (id == null) return
+    console.log('Document check');
     const docRef = firestore.collection('documents').doc(id);
     const doc = await docRef.get();
     if (!doc.exists) {
@@ -69,9 +71,11 @@ async function findOrCreateDocument(id) {
         return document
 
     } else {
+        console.log('document exist');
+        const doc1 = doc.data().data
         console.log('in findor create: ')
         console.log('Document data:', doc.data());
-        return doc
+        return doc1
     }
 
     //const docRef = ref.doc('SF');
