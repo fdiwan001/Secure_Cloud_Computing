@@ -95,7 +95,7 @@ export function useFolder(folderId = null, folder = null) {
   useEffect(() => {
     return (
       database.documents
-        .where("folderId", "==", folderId)
+        //.where("folderId", "==", folderId)
         .where("userId", "array-contains", currentUser.uid)
         //.orderBy("createdAt")
         .onSnapshot(snapshot => {

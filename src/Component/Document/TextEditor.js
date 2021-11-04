@@ -4,6 +4,7 @@ import "quill/dist/quill.snow.css"
 import { io } from 'socket.io-client'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { AddFile} from "../Drive/AddFile"
 
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],

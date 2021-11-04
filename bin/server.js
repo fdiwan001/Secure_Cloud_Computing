@@ -42,21 +42,26 @@ io.on("connection", socket => {
             console.log("in socket")
             socket.emit("load-document", document)
 
+            socket.on("document-name", name => { 
+                console.log("name of doc is ", name) 
+            })
+
+            socket.on("folderId", folderId => {
+                console.log("parentId of doc is ", folderId)});
+
             socket.on('send-changes', delta => {
                 socket.broadcast.to(documentId).emit('receive-changes', delta)
             })
 
             socket.on("save-document", async data => {
+                                const docRef = firestore.collection('documents').doc(documentId);
 
-                const docRef = firestore.collection('documents').doc(documentId);
-
-                const doc = await docRef.set({
-                    data: data,
-                    docId: documentId,
-                    userId: userid,
-                }, { merge: true });
-                
-                //await document.findByIdAndUpdate(documentId, { data })
+                                const doc = await docRef.set({
+                                    data: data,
+                                    docId: documentId,
+                                    userId: userid,
+                                }, { merge: true });
+                            
             })
         })
     })
