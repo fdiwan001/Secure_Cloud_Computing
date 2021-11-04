@@ -3,6 +3,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import { io } from 'socket.io-client'
 import { useParams } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -22,7 +23,11 @@ export default function TextEditor() {
     const {id: documentId} = useParams()
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState() 
+    const { currentUser } = useAuth()
     console.log(documentId)
+    console.log("current user is ", currentUser.uid)
+    const userid = [];
+    userid.push(currentUser.uid)
 
     useEffect(() => {
         const s = io("http://localhost:3001")
@@ -41,8 +46,9 @@ export default function TextEditor() {
             quill.enable()
         })
         socket.emit('get-document', documentId)
+        socket.emit('get-userid', userid)
 
-    },[socket, quill, documentId])
+    },[socket, quill, documentId, userid])
 
 
     

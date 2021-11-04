@@ -22,7 +22,7 @@ export default function NavbarComponent() {
 
             <Nav>
 
-                <Nav.Link as={Link} to="/create">
+                <Nav.Link as={Link} target = {"_blank"} to="/create">
                     Document
                 </Nav.Link>
             </Nav>

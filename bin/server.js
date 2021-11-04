@@ -33,26 +33,31 @@ console.log("Server is running")
 
 io.on("connection", socket => {
     socket.on('get-document', async documentId => {
-        const document = await findOrCreateDocument(documentId)
-        socket.join(documentId)
-        console.log("in socket")
-        socket.emit("load-document", document)
 
-        socket.on('send-changes', delta => {
-            socket.broadcast.to(documentId).emit('receive-changes', delta)
-        })
+        socket.on('get-userid', async userid => {
 
-        socket.on("save-document", async data => {
+        
+            const document = await findOrCreateDocument(documentId)
+            socket.join(documentId)
+            console.log("in socket")
+            socket.emit("load-document", document)
 
-            const docRef = firestore.collection('documents').doc(documentId);
+            socket.on('send-changes', delta => {
+                socket.broadcast.to(documentId).emit('receive-changes', delta)
+            })
 
-            const doc = await docRef.set({
-                data: data,
-                docId: documentId,
-                userId: null,
-              }, { merge: true });
-              
-            //await document.findByIdAndUpdate(documentId, { data })
+            socket.on("save-document", async data => {
+
+                const docRef = firestore.collection('documents').doc(documentId);
+
+                const doc = await docRef.set({
+                    data: data,
+                    docId: documentId,
+                    userId: userid,
+                }, { merge: true });
+                
+                //await document.findByIdAndUpdate(documentId, { data })
+            })
         })
     })
     console.log("connected");
