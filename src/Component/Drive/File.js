@@ -16,7 +16,7 @@ export default function File({ file }) {
       as={Link}
     >
       <FontAwesomeIcon icon={faFile} className="mr-2" />
-      {file.docId}
+      {file.name}
     </Button>
            
            

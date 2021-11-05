@@ -83,6 +83,7 @@ async function findOrCreateDocument(docInfo) {
                 data: defaultValue,
                 userId: docInfo.userid,
                 docId: docInfo.id,
+                name: "untitled-document"
             }
         );
         return document
