@@ -1,5 +1,5 @@
 #Stage 0 - Build Frontend Assets
-FROM node:17.0.1 as build
+FROM node:12.22.5 as build
 
 WORKDIR /app
 COPY package*.json ./
