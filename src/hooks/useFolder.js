@@ -1,6 +1,7 @@
 import { useReducer, useEffect } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { database } from "../firebase"
+import { TextEditor } from "../Component/Document/TextEditor"
 
 const ACTIONS = {
   SELECT_FOLDER: "select-folder",
@@ -93,8 +94,8 @@ export function useFolder(folderId = null, folder = null) {
 
   useEffect(() => {
     return (
-      database.files
-        .where("folderId", "==", folderId)
+      database.documents
+        //.where("folderId", "==", folderId)
         .where("userId", "array-contains", currentUser.uid)
         //.orderBy("createdAt")
         .onSnapshot(snapshot => {
