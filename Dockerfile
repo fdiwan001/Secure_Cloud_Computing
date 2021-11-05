@@ -6,7 +6,6 @@ COPY package*.json ./
 RUN npm install
 RUN npm --save-dev nodemon
 COPY . .
-RUN npm run build
 RUN npm run devstart
 
 # Stage 1 - Serve Frontend Assets
