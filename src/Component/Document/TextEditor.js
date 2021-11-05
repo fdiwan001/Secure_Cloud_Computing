@@ -93,7 +93,7 @@ export default function TextEditor() {
     
 
     useEffect(() => {
-        const s = io("34.132.20.72:8080")
+        const s = io("34.132.20.72")
         setSocket(s);
 
         return () => {
