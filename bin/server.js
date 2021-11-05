@@ -44,10 +44,13 @@ io.on("connection", socket => {
 
             socket.on("document-name", name => { 
                 console.log("name of doc is ", name) 
+                console.log("doc name is ", name)
             })
 
             socket.on("folderId", folderId => {
-                console.log("parentId of doc is ", folderId)});
+                console.log("parentId of doc is ", folderId)
+                console.log("doc parentID is ", folderId)
+            });
 
             socket.on('send-changes', delta => {
                 socket.broadcast.to(documentId).emit('receive-changes', delta)
@@ -59,7 +62,6 @@ io.on("connection", socket => {
                                 const doc = await docRef.set({
                                     data: data,
                                     docId: documentId,
-                                    userId: userid,
                                 }, { merge: true });
                             
             })

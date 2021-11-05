@@ -45,7 +45,6 @@ export default function AddFile({ currentFolder }) {
 
   return (
   <>
-    <Link target = {"_blank"} to="/create"></Link>
     <Button onClick={openModal} variant="outline-success" size="sm">
         <FontAwesomeIcon icon={faFileMedical} />
       </Button>
