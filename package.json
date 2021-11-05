@@ -24,7 +24,7 @@
   },
   "scripts": {
     "devstart": "nodemon ./bin/server.js",
-    "start": "react-scripts start nodemon ./bin/server.js",
+    "start": "react-scripts start",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider; react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
