@@ -15,5 +15,5 @@ docker run -p 3000:3000 client
 
 
 to run server
-docker build -f Dockerfile.client -t server .
+docker build -f Dockerfile.server -t server .
 docker run -p 3001:3001 server
