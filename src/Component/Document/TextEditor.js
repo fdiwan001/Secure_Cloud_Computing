@@ -93,7 +93,7 @@ export default function TextEditor() {
     
 
     useEffect(() => {
-        const s = io("https://secure-cloud-computing-server-branch-c2hzr5vfpq-uc.a.run.app:3001")
+        const s = io("https://34.132.20.70:8080")
         setSocket(s);
 
         return () => {
