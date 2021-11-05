@@ -7,7 +7,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import { faFileAlt, faShare } from '@fortawesome/free-solid-svg-icons'
 import { Button, Modal, Form } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { database, firestore } from '../../firebase'
+import { firestore } from '../../firebase'
+
 
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -38,38 +39,42 @@ export default function TextEditor() {
     const emailRef = useRef()
     const [name, setName] = useState("")
     
+    const docInfo = {
+      userid: userid,
+      id: documentId
 
+    }
     function openModal() {
         setOpen(true)
-      }
+    }
     
-      function closeModal() {
+    function closeModal() {
         setOpen(false)
-      }
+    }
     
-      function shareSubmit(e) {
-        e.preventDefault()
-        console.log("email is ", emailRef.current.value)
+    function shareSubmit(e) {
+      e.preventDefault()
+      console.log("email is ", emailRef.current.value)
 
 
-               console.log("email is ", emailRef.current.value)
-              firestore.collection('users').doc(emailRef.current.value).get().then(doc => {
-                var user = [];
-                user.push(doc.data().userid)    
-              var user1 = [];
-              user1.push(currentUser.uid)
-              user = [...user, ...user1] 
-              console.log("user is ", user) 
-                firestore.collection('documents').doc(documentId).update({
-                 userId: user,
-                 shared: "yes",
-              });
-            })
+              console.log("email is ", emailRef.current.value)
+            firestore.collection('users').doc(emailRef.current.value).get().then(doc => {
+              var user = [];
+              user.push(doc.data().userid)    
+            var user1 = [];
+            user1.push(currentUser.uid)
+            user = [...user, ...user1] 
+            console.log("user is ", user) 
+              firestore.collection('documents').doc(documentId).update({
+                userId: user,
+                shared: "yes",
+            });
+          })
 
         closeModal()
       }
 
-      function filehandle() {
+    function filehandle() {
 
     
         console.log("this is the name", name)
@@ -79,11 +84,11 @@ export default function TextEditor() {
             name: name,
          });
             
-      setName("")
-      closeModal()
+        setName("")
+        closeModal()
         
         
-        }
+    }
 
       
 
@@ -103,10 +108,10 @@ export default function TextEditor() {
             quill.setContents(document)
             quill.enable()
         })
-        socket.emit('get-document', documentId)
-        socket.emit('get-userid', userid)
+        socket.emit('get-document', docInfo)
+        //socket.emit('get-userid', userid)
 
-    },[socket, quill, documentId, userid])
+    },[socket, quill, docInfo])
 
 
     

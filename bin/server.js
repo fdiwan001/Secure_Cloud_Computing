@@ -1,5 +1,4 @@
 const firebase = require("firebase-admin");
-
 const serviceAccount = require("./serviceAccountKey.json");
 
 firebase.initializeApp({
@@ -32,16 +31,18 @@ const io = require('socket.io')(3001, {
 console.log("Server is running")
 
 io.on("connection", socket => {
-    socket.on('get-document', async documentId => {
+    socket.on('get-document', async docInfo=> {
 
-        socket.on('get-userid', async userid => {
+        //socket.on('get-userid', async userid => {
 
-        
-            const document = await findOrCreateDocument(documentId)
+            
+            const document = await findOrCreateDocument(docInfo)
+            const documentId = docInfo.id
             socket.join(documentId)
             console.log("in socket")
             socket.emit("load-document", document)
 
+            /**
             socket.on("document-name", name => { 
                 console.log("name of doc is ", name) 
                 console.log("doc name is ", name)
@@ -51,35 +52,39 @@ io.on("connection", socket => {
                 console.log("parentId of doc is ", folderId)
                 console.log("doc parentID is ", folderId)
             });
-
+             */
             socket.on('send-changes', delta => {
                 socket.broadcast.to(documentId).emit('receive-changes', delta)
             })
 
             socket.on("save-document", async data => {
-                                const docRef = firestore.collection('documents').doc(documentId);
+                const docRef = firestore.collection('documents').doc(documentId);
 
-                                const doc = await docRef.set({
+                const doc = await docRef.set({
                                     data: data,
-                                    docId: documentId,
-                                }, { merge: true });
+                }, { merge: true });
                             
             })
-        })
+        //})
     })
     console.log("connected");
 })
 
 
-async function findOrCreateDocument(id) {
-    if (id == null) return
-    console.log('Document check');
-    const docRef = firestore.collection('documents').doc(id);
+async function findOrCreateDocument(docInfo) {
+    if (docInfo == null) return
+    const docRef = firestore.collection('documents').doc(docInfo.id);
     const doc = await docRef.get();
     if (!doc.exists) {
         console.log('No such document!');
         console.log('creating document');
-        const document = await firestore.collection('documents').doc(id).set({data: defaultValue});
+        const document = await firestore.collection('documents').doc(docInfo.id).set(
+            {
+                data: defaultValue,
+                userId: docInfo.userid,
+                docId: docInfo.id,
+            }
+        );
         return document
 
     } else {
