@@ -7,5 +7,10 @@ RUN npm install --silent
 COPY . .
 EXPOSE 8080
 CMD ["npm", "run", "devstart"]
+RUN npm cache clean --force
+RUN rm -rf node_modules package-lock.json
+RUN npm install --silent
+
+CMD ["npm", "run", "devstart"]
 
 

@@ -31,7 +31,6 @@ export default function Dashboard() {
         <Container fluid>
           <div className="d-flex align-items-center">
             <FolderBreadcrumbs currentFolder={folder} />
-            <AddFile currentFolder={folder} />
             <AddFolder currentFolder={folder} />
             <ShareFolder currentFolder={folder} />
           </div>
