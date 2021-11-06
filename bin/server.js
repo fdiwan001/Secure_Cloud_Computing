@@ -23,7 +23,7 @@ const defaultValue = ""
 
 const io = require('socket.io')(8080, {
     cors: {
-        origin: 'https://secure-cloud-computing-c2hzr5vfpq-uc.a.run.app:8080',
+        origin: 'http://secure-cloud-computing-c2hzr5vfpq-uc.a.run.app:8080',
         methods: ["GET", "POST"]
     }
 })
