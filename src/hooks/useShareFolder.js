@@ -98,8 +98,8 @@ export function useShareFolder(folderId = null, folder = null) {
         return (
           database.files
             .where("shared", "==", "yes")
-            .where("ownerId", "==", currentUser.uid)
-            .orderBy("createdAt")
+            .where("userId", "==", currentUser.uid)
+            //.orderBy("createdAt")
             .onSnapshot(snapshot => {
               dispatch({
                 type: ACTIONS.SET_CHILD_FILES,
