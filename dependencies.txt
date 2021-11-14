@@ -1,0 +1,19 @@
+
+
+npm i firebase
+npm i bootstrap
+npm i react-bootstrap
+
+npm i --save @fortawesome/fontawesome-svg-core
+npm install --save @fortawesome/free-solid-svg-icons
+npm install --save @fortawesome/react-fontawesome
+
+
+to run client:
+docker build -f Dockerfile.client -t client .
+docker run -p 3000:3000 client
+
+
+to run server
+docker build -f Dockerfile.server -t server .
+docker run -p 3001:3001 server
