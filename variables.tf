@@ -1,11 +1,11 @@
 variable "project_id" {
   description = "GCP Project ID"
-  type        = cloud-development-e159d
+  type        = string
 }
 
 variable "name" {
   description = "name prefix for resources"
-  type        = secure-cloudrun-app
+  type        = string
 }
 
 variable "image" {
