@@ -10,5 +10,5 @@ variable "name" {
 
 variable "image" {
   description = "container image to deploy"
-  default     = "gcr.io/cloud-development-e159d/github.com/fdiwan001/secure_cloud_computing:latest"
+  default     = "gcr.io/cloud-development-e159d/github.com/fdiwan001/secure_cloud_computing"
 }
