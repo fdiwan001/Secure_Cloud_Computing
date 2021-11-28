@@ -51,11 +51,11 @@ module "lb-http" {
 
   ssl                             = false
   managed_ssl_certificate_domains = []
-  https_redirect                  = true
+  https_redirect                  = false
   backends = {
     default = {
       description            = null
-      enable_cdn             = true
+      enable_cdn             = false
       custom_request_headers = null
 
       log_config = {
