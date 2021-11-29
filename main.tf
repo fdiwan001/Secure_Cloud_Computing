@@ -57,6 +57,7 @@ module "lb-http" {
       description            = null
       enable_cdn             = true
       custom_request_headers = null
+      port_range = "8080"
 
       log_config = {
         enable      = true
@@ -83,11 +84,3 @@ module "lb-http" {
 output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
-  
-  resource "google_compute_global_forwarding_rule" "http" {
-      load_balancing_scheme = "EXTERNAL"
-      name                  = "secureapp"
-      port_range            = "8080"
-      project               = "cloud-development-e159d"
-      target                = (known after apply)
-    }
