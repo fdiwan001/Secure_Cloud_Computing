@@ -89,4 +89,5 @@ output "url" {
       name                  = "secureapp"
       port_range            = "8080"
       project               = "cloud-development-e159d"
+      target                = (known after apply)
     }
