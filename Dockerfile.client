@@ -1,4 +1,4 @@
-#Stage 0 - Build Frontend Assets
+#Stage 0 -  Build Frontend Assets
 FROM node:12.21.0-alpine
 
 WORKDIR /app-client
