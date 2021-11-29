@@ -10,5 +10,5 @@ variable "name" {
 
 variable "image" {
   description = "container image to deploy"
-  default     = "gcr.io/cloud-development-e159d/myapp:latest"
+  default     = "gcr.io/cloud-development-e159d/secure_app:latest"
 }
