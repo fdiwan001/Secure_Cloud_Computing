@@ -87,6 +87,6 @@ output "url" {
   resource "google_compute_global_forwarding_rule" "http" {
       load_balancing_scheme = "EXTERNAL"
       name                  = "secureapp"
-      + port_range            = "8080"
-      + project               = "cloud-development-e159d"
+      port_range            = "8080"
+      project               = "cloud-development-e159d"
     }
