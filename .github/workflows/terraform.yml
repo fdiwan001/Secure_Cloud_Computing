@@ -77,6 +77,11 @@ jobs:
       run: terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+    #Remove existing resources using Terraform
+    - name: Terraform Destroy
+      run: terraform destroy -var=name=secureapp -var=project_id=cloud-development-e159d
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
    # Generates an execution plan for Terraform
     - name: Terraform Plan
