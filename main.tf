@@ -16,6 +16,7 @@ resource "google_cloud_run_service" "default" {
       containers {
         image = var.image
       }
+      container_port = 80
     }
   }
 }
@@ -52,7 +53,6 @@ module "lb-http" {
   ssl                             = false
   managed_ssl_certificate_domains = []
   https_redirect                  = false
-  http_forward                    = false
   backends = {
     default = {
       description            = null
