@@ -15,10 +15,6 @@ resource "google_cloud_run_service" "default" {
     spec {
       containers {
         image = var.image
-        env {
-          name = "PORT"
-          value = "80"
-        }
       }
     }
   }
@@ -87,3 +83,10 @@ module "lb-http" {
 output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
+  
+  resource "google_compute_global_forwarding_rule" "http" {
+      load_balancing_scheme = "EXTERNAL"
+      name                  = "secureapp"
+      + port_range            = "8080"
+      + project               = "cloud-development-e159d"
+    }
