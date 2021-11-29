@@ -57,7 +57,6 @@ module "lb-http" {
       description            = null
       enable_cdn             = true
       custom_request_headers = null
-      port_range = "8080"
 
       log_config = {
         enable      = true
