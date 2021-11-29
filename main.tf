@@ -83,3 +83,14 @@ module "lb-http" {
 output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
+  
+resource "google_compute_forwarding_rule" "http" {
+  name                  = "secureapp2"
+  ip_protocol           = "HTTP"
+  load_balancing_scheme = "INTERNAL_MANAGED"
+  port_range            = "8080"
+  target                = google_compute_region_target_http_proxy.default.id
+  network               = google_compute_network.ilb_network.id
+  subnetwork            = google_compute_subnetwork.ilb_subnet.id
+  network_tier          = "PREMIUM"
+}
