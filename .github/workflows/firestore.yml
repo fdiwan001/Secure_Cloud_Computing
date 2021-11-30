@@ -1,5 +1,11 @@
 name: Export Firestore Data
 on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Backup'
+        default: 'Backup'
+        required: false
   schedule:
     - cron: '0 0 * * *'
 
