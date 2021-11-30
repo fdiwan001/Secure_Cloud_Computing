@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
+        with:
           service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           export_default_credentials: true
       
-      -run: gcloud config set project cloud-development-e159d
-      -run: gcloud firestore export gs://firestore-backup-asia-multi
-      -run: gcloud firestore export gs://firestore-backup-us
-      -run: gcloud firestore export gs://firestore-backup-eur
+        -run: gcloud config set project cloud-development-e159d
+        -run: gcloud firestore export gs://firestore-backup-asia-multi
+        -run: gcloud firestore export gs://firestore-backup-us
+        -run: gcloud firestore export gs://firestore-backup-eur
