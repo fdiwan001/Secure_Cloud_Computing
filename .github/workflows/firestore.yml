@@ -1,11 +1,5 @@
-name: Firestore Backups
-on: 
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Firestore-Backup'
-        default: 'Firestore-Backup'
-        required: false
+name: Export Firestore Data
+on:
   schedule:
     - cron: '0 0 * * *'
 
@@ -13,7 +7,7 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps: 
-      - uses: google-github-actions/setup-gcloud@master
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           export_default_credentials: true
