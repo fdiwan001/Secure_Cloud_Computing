@@ -9,7 +9,7 @@ jobs:
     steps: 
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
       
         -run: gcloud config set project cloud-development-e159d
