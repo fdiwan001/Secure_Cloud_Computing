@@ -7,7 +7,7 @@ on:
         default: 'Firestore-Backup'
         required: false
   schedule:
-    - cron: '0 0 1-31/2 * *'
+    - cron: '0 0 * * *'
 
 jobs: 
   backup:
@@ -16,6 +16,7 @@ jobs:
       - uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCP_FS_KEY }}
+          export_default_credentials: true
       
       -run: gcloud config set project cloud-development-e159d
       -run: gcloud firestore export gs://firestore-backup-asia-multi
