@@ -1,0 +1,23 @@
+name: Firestore Backups
+on: 
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Firestore-Backup'
+        default: 'Firestore-Backup'
+        required: false
+  schedule:
+    - cron: '0 0 1-31/2 * *'
+
+jobs: 
+  backup:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_FS_KEY }}
+      
+      -run: gcloud config set project cloud-development-e159d
+      -run: gcloud firestore export gs://firestore-backup-asia-multi
+      -run: gcloud firestore export gs://firestore-backup-us
+      -run: gcloud firestore export gs://firestore-backup-eur
