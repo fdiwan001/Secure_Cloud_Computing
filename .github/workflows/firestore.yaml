@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master`
-          service_account_key: ${{ GOOGLE_CREDENTIALS }}
+      with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           export_default_credentials: true
       
       -run: gcloud config set project cloud-development-e159d
