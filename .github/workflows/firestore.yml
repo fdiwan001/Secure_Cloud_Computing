@@ -1,13 +1,9 @@
 name: Firestore Backups
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Backup'
-        default: 'Backup'
-        required: false
-  schedule:
-    - cron: '15 23 * * *'
+  push:
+    branches:
+    - firestore-backup
+  pull_request:
 jobs:
   backup:
     runs-on: ubuntu-latest
