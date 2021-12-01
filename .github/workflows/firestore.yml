@@ -1,4 +1,4 @@
-name: Firestore Backups
+name: Firestore Backup
 on:
   push:
     branches:
