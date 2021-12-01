@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: google-github-actions/setup-gcloud@master
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           
       - run: gcloud config set project cloud-development-e159d
       - run: gcloud firestore export gs://cloud-development-e159d.appspot.com/backup
