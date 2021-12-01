@@ -7,7 +7,7 @@ on:
         default: 'Backup'
         required: false
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '15 23 * * *'
 jobs:
   backup:
     runs-on: ubuntu-latest
@@ -17,6 +17,4 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           
       - run: gcloud config set project cloud-development-e159d
-      - run: gcloud firestore export gs://firestore-backup-us
-      - run: gcloud firestore export gs://firestore-backup-eur
-      - run: gcloud firestore export gs://firestore-backup-asia-multi
+      - run: gcloud firestore export gs://cloud-development-e159d.appspot.com/backup
