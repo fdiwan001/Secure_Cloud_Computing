@@ -16,8 +16,3 @@ variable "domain" {
   description = "Zone domain."
   default     = "securecloudapp.org"
 }
-
-variable "network_self_links" {
-  description = "Self link of the network that will be allowed to query the zone."
-  default     = []
-}
