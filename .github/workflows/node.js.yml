@@ -4,6 +4,12 @@
 name: Node.js CI
 
 on:
+  workflow_dispatch:
+        inputs:
+          name:
+            description: 'Terraform-prod'
+            default: 'Terraform-prod'
+            required: false
   push:
     branches: [ updated-doc ]
   pull_request:
