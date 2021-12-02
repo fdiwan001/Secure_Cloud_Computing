@@ -91,7 +91,7 @@ module "dns-public-zone" {
   type                               = "public"
   name                               = var.name
   domain                             = var.domain
-  private_visibility_config_networks = [var.network_self_links]
+  private_visibility_config_networks = []
 
   recordsets = [
     {
