@@ -45,6 +45,12 @@
 name: 'Terraform'
 
 on:
+  workflow_dispatch:
+      inputs:
+        name:
+          description: 'Terraform'
+          default: 'Terraform'
+          required: false
   pull_request:
    branches:
     - main
