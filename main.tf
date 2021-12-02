@@ -49,9 +49,9 @@ module "lb-http" {
   project = var.project_id
   name    = var.name
 
-  ssl                             = true
-  managed_ssl_certificate_domains = ["securecloudapp.org"]
-  https_redirect                  = true
+  ssl                             = false
+  managed_ssl_certificate_domains = ["securecloudappdev.org"]
+  https_redirect                  = false
   backends = {
     default = {
       description            = null
