@@ -98,7 +98,7 @@ module "dns-public-zone" {
       type = "A"
       ttl  = 300
       records = [
-        ${module.lb-http.external_ip},
+        "${module.lb-http.external_ip}",
       ]
     },
     {
