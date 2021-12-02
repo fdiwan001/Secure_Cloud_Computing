@@ -50,7 +50,7 @@ module "lb-http" {
   name    = var.name
 
   ssl                             = true
-  managed_ssl_certificate_domains = ["securecloudapp.org"]
+  managed_ssl_certificate_domains = ["securecloudprod.com"]
   https_redirect                  = true
   backends = {
     default = {
