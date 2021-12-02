@@ -84,6 +84,11 @@ output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
   
+  resource "google_dns_managed_zone" "prod" {
+  name     = "securecloudapp"
+  dns_name = "securecloudapp.org"
+}
+  
 resource "google_dns_record_set" "a" {
   name         = "backend.${google_dns_managed_zone.prod.dns_name}"
   managed_zone = google_dns_managed_zone.prod.name
@@ -91,9 +96,4 @@ resource "google_dns_record_set" "a" {
   ttl          = 300
 
   rrdatas = ["${module.lb-http.external_ip}"]
-}
-
-resource "google_dns_managed_zone" "prod" {
-  name     = "prod-zone"
-  dns_name = var.domain
 }
