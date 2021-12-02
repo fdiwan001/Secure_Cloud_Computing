@@ -83,32 +83,17 @@ module "lb-http" {
 output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
+  
+resource "google_dns_record_set" "a" {
+  name         = "backend.${google_dns_managed_zone.prod.dns_name}"
+  managed_zone = google_dns_managed_zone.prod.name
+  type         = "A"
+  ttl          = 300
 
-module "dns-public-zone" {
-  source  = "terraform-google-modules/cloud-dns/google"
-  version = "~> 4.0.0"
-  project_id                         = var.project_id
-  type                               = "public"
-  name                               = var.name
-  domain                             = var.domain
-  private_visibility_config_networks = []
+  rrdatas = ["${module.lb-http.external_ip}"]
+}
 
-  recordsets = [
-    {
-      name = "A"
-      type = "A"
-      ttl  = 300
-      records = [
-        "${module.lb-http.external_ip}",
-      ]
-    },
-    {
-      name = ""
-      type = "NS"
-      ttl  = 300
-      records = [
-        "ns.${var.domain}",
-      ]
-    },
-  ]
+resource "google_dns_managed_zone" "prod" {
+  name     = "prod-zone"
+  dns_name = var.domain
 }
