@@ -83,3 +83,31 @@ module "lb-http" {
 output "url" {
   value = "http://${module.lb-http.external_ip}"
 }
+
+module "dns-public-zone" {
+  source                             = "../.."
+  project_id                         = var.project_id
+  type                               = "public"
+  name                               = var.name
+  domain                             = var.domain
+  private_visibility_config_networks = [var.network_self_links]
+
+  recordsets = [
+    {
+      name = "A"
+      type = "A"
+      ttl  = 300
+      records = [
+        ${module.lb-http.external_ip},
+      ]
+    },
+    {
+      name = ""
+      type = "NS"
+      ttl  = 300
+      records = [
+        "ns.${var.domain}",
+      ]
+    },
+  ]
+}

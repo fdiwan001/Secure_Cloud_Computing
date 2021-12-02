@@ -42,14 +42,14 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Terraform-prod'
 
 on:
   workflow_dispatch:
       inputs:
         name:
-          description: 'Terraform'
-          default: 'Terraform'
+          description: 'Terraform-prod'
+          default: 'Terraform-prod'
           required: false
   pull_request:
    branches:
