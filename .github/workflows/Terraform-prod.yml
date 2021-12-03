@@ -51,7 +51,6 @@ on:
           description: 'Terra-prod'
           default: 'Terra-prod'
           required: false
-  pull_request:
    branches:
     - updated-doc-prod
     

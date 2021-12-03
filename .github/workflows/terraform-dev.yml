@@ -51,7 +51,6 @@ on:
           description: 'Terra-dev'
           default: 'Terra-dev'
           required: false
-  pull_request:
   push:
    branches:
     - updated-doc-dev
