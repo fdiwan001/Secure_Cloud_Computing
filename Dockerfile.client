@@ -6,6 +6,4 @@ COPY package*.json ./
 RUN npm install --silent
 COPY . .
 EXPOSE 3000
-RUN apk update && apk add --no-cache supervisor openssh nginx
-COPY supervisord.conf /etc/supervisord.conf
-CMD ["supervisord"]
+CMD ["npm", "start"]
