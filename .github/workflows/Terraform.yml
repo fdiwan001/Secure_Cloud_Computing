@@ -84,13 +84,6 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
 
-    # Terraform Destroy older enviroment
-    - name: Terraform Destroy
-      run: terraform-chdir = "./production" destroy -var=name=securecloudapp -var=project_id=cloud-production-5be1a -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
-
-
    # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan 
