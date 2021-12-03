@@ -6,7 +6,6 @@ COPY package*.json ./
 RUN npm install --silent
 COPY . .
 EXPOSE 3000
-RUN apt-get update && apt-get install -y supervisor
-ADD supervisord.config /etc/supervisor/conf.d/supervisord.conf
-
-
+RUN apk update && apk add --no-cache supervisor openssh nginx
+COPY supervisord.conf /etc/supervisord.conf
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
