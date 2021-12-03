@@ -52,9 +52,8 @@ on:
           default: 'Terra-dev'
           required: false
   pull_request:
-  push:
    branches:
-    - main
+    - updated-doc-dev
     
 
 jobs:
