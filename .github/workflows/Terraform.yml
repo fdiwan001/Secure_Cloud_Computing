@@ -86,10 +86,9 @@ jobs:
 
     # Terraform Destroy older enviroment
     - name: Terraform Destroy
-      uses: dflook/terraform-destroy@v1 -var=name=securecloudapp -var=project_id=cloud-production-5be1a
-      with:
-        path: ./production
-        workspace: ${{ github.head_ref }}
+      run: terraform-chdir = "./production" destroy -var=name=securecloudapp -var=project_id=cloud-production-5be1a -auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
 
 
    # Generates an execution plan for Terraform
