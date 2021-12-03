@@ -9,7 +9,8 @@ configure({adapter: new Adapter()});
 describe('NavbarComponent', () => {``
   it('should render correctly in "debug" mode', () => {
     const component = shallow(<NavbarComponent debug />);
-  
+    console.log("wiritng a test");
     expect(component).toMatchSnapshot();
+
   });
 });
