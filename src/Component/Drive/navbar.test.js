@@ -10,6 +10,6 @@ describe('NavbarComponent', () => {``
   it('should render correctly in "debug" mode', () => {
     const component = shallow(<NavbarComponent debug />);
   
-    expect(component).toBeFalsy();
+    expect(component).toMatchSnapshot();
   });
 });
