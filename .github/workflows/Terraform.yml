@@ -84,28 +84,23 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
 
-   # Generates an execution plan for Terraform
-    - name: Terraform Plan Destroy
-      run: terraform plan -destroy -var=name=securecloudapp -var=project_id=cloud-production-5be1a
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
+    # Terraform Destroy older enviroment
+    - name: Terraform Destroy
+      uses: dflook/terraform-destroy@v1 -var=name=securecloudapp -var=project_id=cloud-production-5be1a
+      with:
+        path: ./production
+        workspace: ${{ github.head_ref }}
 
-      # On push to main, build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply Destroy
-      run: terraform apply -destroy -var=name=securecloudapp -var=project_id=cloud-production-5be1a -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
 
    # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var=name=securecloudapp -var=project_id=cloud-production-5be1a
+      run: terraform plan 
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      run: terraform apply -var=name=securecloudapp -var=project_id=cloud-production-5be1a -auto-approve
+      run: terraform-chdir = "./production" apply -var=name=securecloudapp -var=project_id=cloud-production-5be1a -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS_PROD }}
