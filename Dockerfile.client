@@ -6,5 +6,7 @@ COPY package*.json ./
 RUN npm install --silent
 COPY . .
 EXPOSE 3000
-CMD ["npm", "start"]
+RUN apt-get update && apt-get install -y supervisor
+ADD supervisord.config /etc/supervisor/conf.d/supervisord.conf
+
 
