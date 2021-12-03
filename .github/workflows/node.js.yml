@@ -28,4 +28,5 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm test
+    - run: npm install -g loadtest
     - run: loadtest -c 10 --rps 200 https://securecloudprod.com/login
