@@ -3,7 +3,7 @@ const serviceAccount = require("./serviceAccountKey.json");
 
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://cloud-development-e159d.firebaseio.com"
+  databaseURL: "https://cloud-computing-2021-5290b.firebaseio.com"
 });
 
 const firestore = firebase.firestore();
@@ -21,9 +21,9 @@ const database = {
 const storage = firebase.storage()
 const defaultValue = ""
 
-const io = require('socket.io')(8080, {
+const io = require('socket.io')(3001, {
     cors: {
-        origin: 'https://secure-cloud-computing-c2hzr5vfpq-uc.a.run.app:8080',
+        origin: 'http://localhost:3000',
         methods: ["GET", "POST"]
     }
 })
