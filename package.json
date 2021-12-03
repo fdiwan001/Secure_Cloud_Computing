@@ -27,9 +27,7 @@
     "devstart": "nodemon ./bin/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --coverage --updateSnapshot",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -51,15 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/polyfill": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "@babel/preset-react": "^7.0.0-beta.51",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
-    "enzyme": "^3.3.0",
-    "loadtest": "^5.1.2",
     "nodemon": "^2.0.14"
   }
 }
