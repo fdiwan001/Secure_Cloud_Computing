@@ -9,6 +9,6 @@ EXPOSE 3000
 RUN apk update
 RUN apk --no-cache add curl
 RUN apk add bash
-RUN curl -sS0 https://dl.google.com/cloudagents/install-monitoring-agents.sh
+RUN curl -sSO https://dl.google.com/cloudagents/install-monitoring-agents.sh
 RUN bash install-monitoring-agent.sh
 CMD ["npm", "start"]
