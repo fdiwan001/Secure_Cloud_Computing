@@ -1,16 +1,19 @@
-import { faFile } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react"
-import { Button } from "react-bootstrap"
-import { Link } from "react-router-dom"
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function File({ file }) {
   return (
-      <Button
+    <Button
       to={{
         pathname: `/documents/${file.docId}`,
       }}
-      target = "_blank"
+      target="_blank"
       variant="secondary"
       className="text-truncate w-100"
       as={Link}
@@ -18,7 +21,6 @@ export default function File({ file }) {
       <FontAwesomeIcon icon={faFile} className="mr-2" />
       {file.name}
     </Button>
-           
-           
-  )
+
+  );
 }

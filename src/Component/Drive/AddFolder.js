@@ -1,79 +1,78 @@
-import React, { useState } from "react"
-import { Button, Modal, Form } from "react-bootstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFolderPlus} from "@fortawesome/free-solid-svg-icons"
-import { database, firestore } from "../../firebase"
-import { useAuth } from "../../contexts/AuthContext"
-import { ROOT_FOLDER } from "../../hooks/useFolder"
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-no-bind */
+import React, { useState } from 'react';
+import { Button, Modal, Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
+import { database, firestore } from '../../firebase';
+import { useAuth } from '../../contexts/AuthContext';
+import { ROOT_FOLDER } from '../../hooks/useFolder';
 
 export default function AddFolder({ currentFolder }) {
-  const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
-  const { currentUser } = useAuth()
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const { currentUser } = useAuth();
 
   function openModal() {
-    setOpen(true)
+    setOpen(true);
   }
 
   function closeModal() {
-    setOpen(false)
+    setOpen(false);
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    console.log("adding folder started")
+    console.log('adding folder started');
 
-    if (currentFolder == null) return
+    if (currentFolder == null) return;
 
-    const path = [...currentFolder.path]
-    const user = []
-    var sharepath = [currentFolder.id];
-    console.log("sharepath is ", sharepath)
-    user.push(currentUser.uid)
+    const path = [...currentFolder.path];
+    const user = [];
+    let sharepath = [currentFolder.id];
+    console.log('sharepath is ', sharepath);
+    user.push(currentUser.uid);
     if (currentFolder !== ROOT_FOLDER) {
-      path.push({ name: currentFolder.name, id: currentFolder.id })
+      path.push({ name: currentFolder.name, id: currentFolder.id });
 
-      firestore.collection('folders').doc(currentFolder.id).get().then(doc => {
+      firestore.collection('folders').doc(currentFolder.id).get().then((doc) => {
+        sharepath = [...sharepath, ...doc.data().sharepath];
 
-        sharepath = [...sharepath, ...doc.data().sharepath]
-
+        database.folders.add({
+          name,
+          parentId: currentFolder.id,
+          userId: doc.data().userId,
+          shared: doc.data().shared,
+          path,
+          sharepath,
+          ownerId: currentUser.uid,
+          createdAt: database.getCurrentTimestamp(),
+        });
+      });
+      setName('');
+      closeModal();
+    } else {
       database.folders.add({
-        name: name,
+        name,
         parentId: currentFolder.id,
-        userId: doc.data().userId,
-        shared: doc.data().shared,
-        path: path,
-        sharepath: sharepath,
+        userId: user,
+        shared: null,
+        sharepath,
+        path,
         ownerId: currentUser.uid,
         createdAt: database.getCurrentTimestamp(),
-      })
-    })
-      setName("")
-      closeModal()
+      });
+      setName('');
+      closeModal();
+
+      console.log('current user is not null');
+      console.log('current folder id is', currentFolder.id);
     }
-    else{
-      database.folders.add({
-      name: name,
-      parentId: currentFolder.id,
-      userId: user,
-      shared: null,
-      sharepath: sharepath,
-      path: path,
-      ownerId: currentUser.uid,
-      createdAt: database.getCurrentTimestamp(),
-    })
-    setName("")
-    closeModal()
-
-
-    console.log("current user is not null")
-    console.log("current folder id is", currentFolder.id)
-
-    }
-    
   }
-
 
   return (
     <>
@@ -89,7 +88,7 @@ export default function AddFolder({ currentFolder }) {
                 type="text"
                 required
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
           </Modal.Body>
@@ -104,5 +103,5 @@ export default function AddFolder({ currentFolder }) {
         </Form>
       </Modal>
     </>
-  )
+  );
 }

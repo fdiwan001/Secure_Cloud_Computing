@@ -1,22 +1,25 @@
-import React, { useState } from "react"
-import { Card, Button, Alert } from "react-bootstrap"
-import { useAuth } from "../../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
-import CenteredContainer from "./CenteredContainer"
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-no-bind */
+import React, { useState } from 'react';
+import { Card, Button, Alert } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import CenteredContainer from './CenteredContainer';
 
 export default function Profile() {
-  const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
-  const history = useHistory()
+  const [error, setError] = useState('');
+  const { currentUser, logout } = useAuth();
+  const history = useHistory();
 
   async function handleLogout() {
-    setError("")
+    setError('');
 
     try {
-      await logout()
-      history.push("/login")
+      await logout();
+      history.push('/login');
     } catch {
-      setError("Failed to log out")
+      setError('Failed to log out');
     }
   }
 
@@ -26,7 +29,9 @@ export default function Profile() {
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email:</strong> {currentUser.email}
+          <strong>Email:</strong>
+          {' '}
+          {currentUser.email}
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile
           </Link>
@@ -38,5 +43,5 @@ export default function Profile() {
         </Button>
       </div>
     </CenteredContainer>
-  )
+  );
 }

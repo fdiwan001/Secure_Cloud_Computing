@@ -1,15 +1,18 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import { Button } from "react-bootstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFolder } from "@fortawesome/free-solid-svg-icons"
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
 
 export default function Folder({ folder }) {
   return (
     <Button
       to={{
         pathname: `/folder/${folder.id}`,
-        state: { folder: folder },
+        state: { folder },
       }}
       variant="secondary"
       className="text-truncate w-100"
@@ -18,5 +21,5 @@ export default function Folder({ folder }) {
       <FontAwesomeIcon icon={faFolder} className="mr-2" />
       {folder.name}
     </Button>
-  )
+  );
 }
