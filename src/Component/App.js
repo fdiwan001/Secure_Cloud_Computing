@@ -1,20 +1,24 @@
-import React from "react"
-import Signup from "./Authentication/Signup"
-import { AuthProvider } from "../contexts/AuthContext"
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-import Profile from "./Authentication/Profile"
-import Login from "./Authentication/Login"
-import PrivateRoute from "./Authentication/PrivateRoute"
-import ForgotPassword from "./Authentication/ForgotPassword"
-import UpdateProfile from "./Authentication/UpdateProfile"
-import Dashboard from "./Drive/Dashboard"
-import ShareDashboard from "./Drive/ShareDashboard"
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
+import {
+  BrowserRouter as Router, Switch, Route, Redirect,
+} from 'react-router-dom';
+import { v4 as uuidV4 } from 'uuid';
+import Signup from './Authentication/Signup';
+import { AuthProvider } from '../contexts/AuthContext';
+import Profile from './Authentication/Profile';
+import Login from './Authentication/Login';
+import PrivateRoute from './Authentication/PrivateRoute';
+import ForgotPassword from './Authentication/ForgotPassword';
+import UpdateProfile from './Authentication/UpdateProfile';
+import Dashboard from './Drive/Dashboard';
+import ShareDashboard from './Drive/ShareDashboard';
 
-import Doc from "./Document/Doc"
-import TextEditor from "./Document/TextEditor"
-import {v4 as uuidV4 } from "uuid"
+import Doc from './Document/Doc';
+import TextEditor from './Document/TextEditor';
 
-function App() {
+const App = function () {
   return (
     <Router>
       <AuthProvider>
@@ -26,12 +30,12 @@ function App() {
           {/* Docs */}
           <PrivateRoute exact path="/viewall" component={Doc} />
 
-          <PrivateRoute exact path="/create">  
-            <Redirect to ={`/documents/${uuidV4()}`} />
+          <PrivateRoute exact path="/create">
+            <Redirect to={`/documents/${uuidV4()}`} />
           </PrivateRoute>
-          
+
           <PrivateRoute exact path="/documents/:id" component={TextEditor} />
-          {/*Shared Drive*/}
+          {/* Shared Drive */}
           <PrivateRoute path="/shared" component={ShareDashboard} />
           <PrivateRoute path="/folder/:folderId" component={ShareDashboard} />
 
@@ -46,7 +50,7 @@ function App() {
         </Switch>
       </AuthProvider>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;

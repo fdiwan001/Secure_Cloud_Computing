@@ -1,49 +1,54 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
-import CenteredContainer from "./CenteredContainer"
-import { firebase } from "../../firebase"
+/* eslint-disable react/function-component-definition */
+/* eslint-disable camelcase */
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-no-bind */
+import React, { useRef, useState } from 'react';
+import {
+  Form, Button, Card, Alert,
+} from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import CenteredContainer from './CenteredContainer';
+import { firebase } from '../../firebase';
 
 export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
-
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      setError("")
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      setError('');
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push('/');
     } catch {
-      setError("Failed to log in")
+      setError('Failed to log in');
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
-  const signInWithGmail  =()=>{
-    var google_provider = new firebase.auth.GoogleAuthProvider();
+  const signInWithGmail = () => {
+    const google_provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(google_provider)
-    .then((re)=>{
-          setError("")
-          setLoading(true)
-          console.log(re);
-          history.push("/")
-    })
-    .catch((err)=>{
-          console.log(err);
-    })
-    setLoading(false)
-  }
-
+      .then((re) => {
+        setError('');
+        setLoading(true);
+        console.log(re);
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
+  };
 
   return (
     <CenteredContainer>
@@ -64,7 +69,7 @@ export default function Login() {
               Log In
             </Button>
             <Button variant="light" className="w-100" onClick={signInWithGmail}>
-              <img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-google-social-media-justicon-flat-justicon.png" alt="google icon"/>
+              <img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-google-social-media-justicon-flat-justicon.png" alt="google icon" />
               <span> Continue with Google</span>
             </Button>
           </Form>
@@ -74,8 +79,10 @@ export default function Login() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
+        Need an account?
+        {' '}
+        <Link to="/signup">Sign Up</Link>
       </div>
     </CenteredContainer>
-  )
+  );
 }
