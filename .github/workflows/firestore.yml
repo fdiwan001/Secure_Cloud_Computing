@@ -1,0 +1,20 @@
+name: Firestore Backups
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Backup'
+        default: 'Backup'
+        required: false
+  schedule:
+    - cron: '0 1 *  * *'
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          
+      - run: gcloud config set project secure-cloud-computing-2021
+      - run: gcloud firestore export gs://secure-cloud-computing-2021.appspot.com
