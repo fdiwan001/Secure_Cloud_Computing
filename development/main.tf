@@ -4,6 +4,13 @@ provider "google" {
 
 data "google_cloud_run_locations" "default" { }
 
+resource "google_secret_manager_secret" "secret" {
+  secret_id = "secret"
+  replication {
+    automatic = true
+  }
+}
+
 resource "google_cloud_run_service" "default" {
   for_each = toset(data.google_cloud_run_locations.default.locations)
 
@@ -19,7 +26,7 @@ resource "google_cloud_run_service" "default" {
           name = "REACT_APP_FIREBASE_APIKEY"
       value_from {
             secret_key_ref{
-              name = google_secret_manager_secret.secret.APIKEY
+              name = google_secret_manager_secret.secret.secret_id
               key = "1"
             }
       }
