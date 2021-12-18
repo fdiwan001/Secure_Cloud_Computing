@@ -4,13 +4,6 @@ provider "google" {
 
 data "google_cloud_run_locations" "default" { }
 
-resource "google_secret_manager_secret" "secret" {
-  secret_id = "secret"
-  replication {
-    automatic = true
-  }
-}
-
 resource "google_cloud_run_service" "default" {
   for_each = toset(data.google_cloud_run_locations.default.locations)
 
@@ -39,7 +32,7 @@ resource "google_cloud_run_service_iam_member" "default" {
 
 
 resource "google_compute_region_network_endpoint_group" "default" {
-  for_each = toset(data.google_cloud_run_locations.default.locations)
+  for_each = toset(data.google_cloud_run_locations.default.locations)`
 
   name                  = "${var.name}--neg--${each.key}"
   network_endpoint_type = "SERVERLESS"
