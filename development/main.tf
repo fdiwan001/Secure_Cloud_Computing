@@ -15,6 +15,15 @@ resource "google_cloud_run_service" "default" {
     spec {
       containers {
         image = var.image
+        env { 
+          name = "APIKEY"
+      value_from{
+            secret_key_ref{
+              name = google_secret_manager_secret.secret.APIKEY
+              key = "1"
+            }
+      }
+        }
       }
     }
   }
