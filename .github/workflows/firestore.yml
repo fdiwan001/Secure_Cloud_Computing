@@ -17,4 +17,4 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           
       - run: gcloud config set project secure-cloud-computing-2021
-      - run: gcloud firestore export gs://secure-cloud-computing-2021.appspot.com
+      - run: gcloud firestore export gs://secure-cloud-computing-2021-1ilel
