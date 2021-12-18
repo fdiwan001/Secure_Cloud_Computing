@@ -1,5 +1,5 @@
 #Stage 0 - Build Frontend Assets
-FROM node:12.21.0-alpine
+FROM node:17.0.1-alpine
 
 WORKDIR /app-client
 COPY package*.json ./

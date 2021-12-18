@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable func-names */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
