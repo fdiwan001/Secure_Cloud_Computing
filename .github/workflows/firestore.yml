@@ -6,8 +6,6 @@ on:
         description: 'Backup'
         default: 'Backup'
         required: false
-  schedule:
-    - cron: '0 1 *  * *'
 jobs:
   backup:
     runs-on: ubuntu-latest
